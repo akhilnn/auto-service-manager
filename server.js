@@ -4,10 +4,23 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// authentication
+var session = require('express-session');
+var passport = require('passport');
+
+// load secrets from .env file (check placement)
+require('dotenv').config();
+
+// connect to the MongoDB with mongoose (require below?)
+require('./config/database');
+
+// configure Passport
+require('./config/passport');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var app = express();
+var app = express(); // move this?
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,7 +30,17 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // change order of this?
+
+// add code here for session middleware
+app.use(session({
+  secret: 'edcr9fvt248gbyHHNum8',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
