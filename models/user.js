@@ -16,7 +16,7 @@ var vehicleSchema = new Schema({
 	vin: { type: String, required: true },
 	make: { type: String, required: true },
 	model: { type: String, required: true },
-	year: { type: Number, required: true, min: 1950, max: 2020 },
+	year: { type: Number, required: true, min: 1950, max: 2030 },
 	mileage: { type: Number, required: true },
 	services: [serviceSchema],
 	dealership: { type: Schema.Types.ObjectId, ref: 'Dealership' }

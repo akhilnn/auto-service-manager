@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><%= user.name %>'s Vehicles</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <nav class="navbar fixed-top navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1">ASM v1</span>
+      <div class="navbar-nav">
+        <% if (user) { %>
+        <h5><a href="/logout" class="nav-item badge badge-success">Log Out: <%= user.name %> (<%= user.email %>)</a></h5>
+        <% } else { %>
+        <h5><a href="/auth/google" class="nav-item badge badge-light">Login with Google</a></h5>
+        <% } %>
+      </div>
+    </nav>
+    <!-- Remove Dynamic Nav Bar -->
+    <div>
+  		<h2>My Vehicles</h2>
+	  	<% if (user.vehicles.length) { %>
+	  		<% user.vehicles.forEach(function(v) { %>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= v.year %></h5>
+              <p class="card-text"><%= v.make %> <%= v.model %></p>
+            </div>
+          </div>
+	  		<% }); %>
+	  	<% } else { %>
+	  		<h5>No Vehicles Listed</h5>
+	  	<% } %>
+  	</div>
+    <br />
+  	<div>
+  		<h2>Add a Vehicle:</h2>
+  		<form method="POST" action="/vehicles" autocomplete="off">
+        <div class="form-group">
+          <label for="vin">VIN:</label>
+          <input type="text" name="vin" class="form-control" minlength="17" maxlength="17" size="18" required>
+        </div>
+        <div class="form-group">
+          <label for="make">Make:</label>
+          <input type="text" name="make" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="model">Model:</label>
+          <input type="text" name="model" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="year">Year:</label>
+          <input type="number" name="year" min="1950" max="2030" value="2019" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="mileage">Mileage:</label>
+          <input type="text" name="mileage" class="form-control" required>
+        </div>
+  			<!-- Add Dealer property -->
+  			<button type="submit" class="btn btn-dark">Add Vehicle</button>
+  		</form>
+  	</div>
+  	<footer>This will be the Footer</footer>
+  </body>
+</html>
