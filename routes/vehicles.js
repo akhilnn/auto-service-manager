@@ -8,6 +8,9 @@ router.get('/', isLoggedIn, vehiclesCtrl.index);
 // POST to /vehicles
 router.post('/', isLoggedIn, vehiclesCtrl.create);
 
+// DELETE /vehicles/:id
+router.delete('/:id', isLoggedIn, vehiclesCtrl.dlte);
+
 // Why does this not need to require passport?
 // Insert this middleware for routes that require a logged in user
 function isLoggedIn(req, res, next) {

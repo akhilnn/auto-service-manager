@@ -27,8 +27,12 @@
             <div class="card-body">
               <h5 class="card-title"><%= v.year %></h5>
               <p class="card-text"><%= v.make %> <%= v.model %></p>
+              <form method="POST" action="/vehicles/<%= v._id %>?_method=DELETE">
+                <button type="submit" class="btn btn-danger btn-sm">Remove Vehicle</button>
+              </form>
             </div>
           </div>
+          <br />
 	  		<% }); %>
 	  	<% } else { %>
 	  		<h5>No Vehicles Listed</h5>
