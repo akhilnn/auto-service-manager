@@ -4,7 +4,8 @@ module.exports = {
 	index,
 	show,
 	create,
-	dlte
+	dlte,
+	update
 }
 
 function index(req, res) {
@@ -34,3 +35,14 @@ function dlte(req, res) {
 		res.redirect('/vehicles');
 	});
 }
+
+function update(req, res) {
+	var vehicle = req.user.vehicles.id(req.params.id);
+	vehicle.mileage = req.body.mileage;
+
+	req.user.save(function(err) {
+		console.log(vehicle);
+		res.redirect(`/vehicles/${req.params.id}`);
+	});
+}
+

@@ -2,7 +2,8 @@ var User = require('../models/user'); // is this necessary?
 
 module.exports = {
 	new: newService,
-	create
+	create,
+	update
 }
 
 // pass in req.user for dynamic nav bar
@@ -23,3 +24,14 @@ function create(req, res) {
 		res.redirect(`/vehicles/${req.params.id}`);
 	});
 }
+
+function update(req, res) {
+	var service = req.user.vehicles.id(req.params.id).services.id(req.params.serviceId);
+	service.detail = req.body.detail;
+	
+	req.user.save(function(err) {
+		console.log(service);
+		res.redirect(`/vehicles/${req.params.id}`);
+	});
+}
+

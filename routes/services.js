@@ -4,12 +4,16 @@ var servicesCtrl = require('../controllers/services');
 
 // mount and use in server.js [x]
 // isLoggedIn export
+// check for correct route order for same type [x]
 
 // GET /vehicles/:id/services/new
 router.get('/:id/services/new', isLoggedIn, servicesCtrl.new);
 
 // POST /vehicles/:id/services
 router.post('/:id/services', isLoggedIn, servicesCtrl.create);
+
+// PUT /vehicles/:id/services/:serviceId
+router.put('/:id/services/:serviceId', isLoggedIn, servicesCtrl.update);
 
 // Insert this middleware for routes that require a logged in user
 function isLoggedIn(req, res, next) {

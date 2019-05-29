@@ -28,6 +28,13 @@
           <p class="card-text">VIN: <%= vehicle.vin %></p>
           <p class="card-text">Mileage: <%= vehicle.mileage %></p>
         </div>
+        <div class="card-footer">
+          <form method="POST" action="/vehicles/<%= vehicle._id %>?_method=PUT" autocomplete="off">
+            <label for="mileage">Update Mileage:</label>
+            <input type="number" name="mileage" min="0" value="<%= vehicle.mileage %>" required>
+            <button type="submit" class="btn btn-info btn-sm">Update</button>
+          </form>
+        </div>
       </div>
     </aside>
     <main>
@@ -37,17 +44,26 @@
           <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title"><%= s.title %></h5>
-              <h6 class="card-subtitle mb-2 text-muted">
-                <%= s.servDate.getMonth(); %> / <%= s.servDate.getDate(); %> / <%= s.servDate.getFullYear(); %>: <%= s.type %>
-              </h6>
+              <p class="card-subtitle mb-2 text-muted">
+                <%= s.servDate.getUTCMonth()+1; %>/<%= s.servDate.getUTCDate(); %>/<%= s.servDate.getUTCFullYear(); %>: <%= s.type %>
+              </p>
               <p class="card-text">Mileage: <%= s.mileage %></p>
               <p class="card-text"><%= s.detail %></p>
+            </div>
+            <!-- add form-group tags?[x] -->
+            <div class="card-footer">
+              <form method="POST" action="/vehicles/<%= vehicle._id %>/services/<%= s._id %>?_method=PUT" autocomplete="off">
+                <label for="detail">Update Details:</label>
+                <textarea name="detail" rows="2"><%= s.detail %></textarea>
+                <button type="submit" class="btn btn-info btn-sm">Update</button>
+              </form>
             </div>
           </div>
           <br />
         <% }); %>
       <% } else { %>
         <h5>No Service History</h5>
+        <br />
       <% } %>
       <hr>
       <br />
