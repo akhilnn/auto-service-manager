@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><%= vehicle.make %> <%= vehicle.model%></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <nav class="navbar fixed-top navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1">ASM v1</span>
+      <div class="navbar-nav">
+        <% if (user) { %>
+        <a href="/vehicles" class="nav-item nav-link">My Vehicles</a>
+        <h5><a href="/logout" class="nav-item badge badge-success">Log Out: <%= user.name %> (<%= user.email %>)</a></h5>
+        <% } else { %>
+        <h5><a href="/auth/google" class="nav-item badge badge-light">Login with Google</a></h5>
+        <% } %>
+      </div>
+    </nav>
+    <!-- add main tags or container / remove styling with id attribute -->
+    <aside>
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"><%= vehicle.make %> <%= vehicle.model %></h5>
+          <h6 class="card-subtitle mb-2 text-muted"><%= vehicle.year %></h6>
+          <p class="card-text">VIN: <%= vehicle.vin %></p>
+          <p class="card-text">Mileage: <%= vehicle.mileage %></p>
+        </div>
+      </div>
+    </aside>
+    <main>
+      <h2>Service History:</h2>
+      <% if (vehicle.services.length) { %>
+        <% vehicle.services.forEach(function(s) { %>
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title"><%= s.title %></h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                <%= s.servDate.getMonth(); %> / <%= s.servDate.getDate(); %> / <%= s.servDate.getFullYear(); %>: <%= s.type %>
+              </h6>
+              <p class="card-text">Mileage: <%= s.mileage %></p>
+              <p class="card-text"><%= s.detail %></p>
+            </div>
+          </div>
+          <br />
+        <% }); %>
+      <% } else { %>
+        <h5>No Service History</h5>
+      <% } %>
+      <hr>
+      <br />
+      <a href="/vehicles/<%= vehicle._id %>/services/new" class="btn btn-dark">Add a Service Record</a>
+      <br />
+      <!-- add dealer info -->
+    </main>
+    <footer class="mastfoot mt-auto">
+      <p>Designed and built by A. Neti, 2019.</p>
+    </footer>
+  </body>
+</html>
+

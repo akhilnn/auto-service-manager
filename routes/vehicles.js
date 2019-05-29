@@ -5,6 +5,9 @@ var vehiclesCtrl = require('../controllers/vehicles');
 // GET /vehicles
 router.get('/', isLoggedIn, vehiclesCtrl.index);
 
+// GET /vehicles/:id
+router.get('/:id', isLoggedIn, vehiclesCtrl.show);
+
 // POST to /vehicles
 router.post('/', isLoggedIn, vehiclesCtrl.create);
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>New Service Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <nav class="navbar fixed-top navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1">ASM v1</span>
+      <div class="navbar-nav">
+        <% if (user) { %>
+        <a href="/vehicles" class="nav-item nav-link">My Vehicles</a>
+        <h5><a href="/logout" class="nav-item badge badge-success">Log Out: <%= user.name %> (<%= user.email %>)</a></h5>
+        <% } else { %>
+        <h5><a href="/auth/google" class="nav-item badge badge-light">Login with Google</a></h5>
+        <% } %>
+      </div>
+    </nav>
+    <main>
+      <h2>Add a Service Record:</h2>
+      <!-- Group this in columns -->
+      <form method="POST" action="/vehicles/<%= vehicleId %>/services" autocomplete="off">
+        <div class="form-group">
+          <label for="type">Type:</label>
+          <select name="type" class="form-control" required>
+            <option value="Routine">Routine</option>
+            <option value="Repair">Repair</option>
+            <option value="Recall">Recall</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input type="text" name="title" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="detail">Details:</label>
+          <textarea name="detail" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="servDate">Service Date:</label>
+          <!-- Can make this type text with required pattern -->
+          <input type="date" name="servDate" min="1950-01-01" max="2030-01-01" placeholder="YYYY-MM-DD" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="mileage">Mileage:</label>
+          <!-- Add server-side validation -->
+          <input type="number" name="mileage" class="form-control" min="0" value="0" required>
+        </div>
+        <!-- Add Dealer property -->
+        <button type="submit" class="btn btn-dark">Add Service</button>
+      </form>
+      <a href="/vehicles/<%= vehicleId %>" class="btn btn-danger">Cancel</a>
+    </main>
+    <footer class="mastfoot mt-auto">
+      <p>Designed and built by A. Neti, 2019.</p>
+    </footer>
+  </body>
+</html>
+

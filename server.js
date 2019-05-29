@@ -21,6 +21,7 @@ require('./config/passport');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var vehiclesRouter = require('./routes/vehicles');
+var servicesRouter = require('./routes/services');
 
 var app = express(); // move this?
 
@@ -48,6 +49,7 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/vehicles', vehiclesRouter);
+app.use('/vehicles', servicesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

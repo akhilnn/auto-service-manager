@@ -6,7 +6,7 @@ var serviceSchema = new Schema({
 	title: { type: String, required: true },
 	detail: String,
 	servDate: { type: Date, required: true },
-	mileage: { type: Number, required: true },
+	mileage: { type: Number, required: true, min: 0 },
 	dealership: { type: Schema.Types.ObjectId, ref: 'Dealership' }
 },{
 	timestamps: true
@@ -17,7 +17,7 @@ var vehicleSchema = new Schema({
 	make: { type: String, required: true },
 	model: { type: String, required: true },
 	year: { type: Number, required: true, min: 1950, max: 2030 },
-	mileage: { type: Number, required: true },
+	mileage: { type: Number, required: true, min: 0 },
 	services: [serviceSchema],
 	dealership: { type: Schema.Types.ObjectId, ref: 'Dealership' }
 },{
