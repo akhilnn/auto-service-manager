@@ -13,6 +13,7 @@
       <div class="navbar-nav">
         <% if (user) { %>
         <a href="/vehicles" class="nav-item nav-link">My Vehicles</a>
+        <a href="/dealerships/new" class="nav-item nav-link">Add Dealership</a>
         <h5><a href="/logout" class="nav-item badge badge-success">Log Out: <%= user.name %> (<%= user.email %>)</a></h5>
         <% } else { %>
         <h5><a href="/auth/google" class="nav-item badge badge-light">Login with Google</a></h5>

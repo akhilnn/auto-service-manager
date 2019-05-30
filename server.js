@@ -19,7 +19,7 @@ require('./config/database');
 require('./config/passport');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var dealershipsRouter = require('./routes/dealerships');
 var vehiclesRouter = require('./routes/vehicles');
 var servicesRouter = require('./routes/services');
 
@@ -47,7 +47,7 @@ app.use(passport.session());
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', dealershipsRouter);
 app.use('/vehicles', vehiclesRouter);
 app.use('/vehicles', servicesRouter);
 

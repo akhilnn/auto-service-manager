@@ -1,4 +1,5 @@
 var User = require('../models/user'); // is this necessary?
+var Dealership = require('../models/dealership');
 
 module.exports = {
 	index,
@@ -15,8 +16,10 @@ function index(req, res) {
 
 // not using cb functions
 function show(req, res) {
-	var vehicle = req.user.vehicles.id(req.params.id);
-	res.render('vehicles/show', { user: req.user, vehicle });
+	Dealership.find({}, function(err, dealerships) {
+		var vehicle = req.user.vehicles.id(req.params.id);
+		res.render('vehicles/show', { user: req.user, vehicle, dealerships });
+	});
 }
 
 // check if need to clear default parameters with for in loop [x]

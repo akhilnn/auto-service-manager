@@ -1,4 +1,5 @@
 var User = require('../models/user'); // is this necessary?
+var Dealership = require('../models/dealership');
 
 module.exports = {
 	new: newService,
@@ -8,7 +9,9 @@ module.exports = {
 
 // pass in req.user for dynamic nav bar
 function newService(req, res) {
-	res.render('services/new', { user: req.user, vehicleId: req.params.id });
+	Dealership.find({}, function(err, dealerships) {
+		res.render('services/new', { user: req.user, vehicleId: req.params.id, dealerships });
+	});
 }
 
 // check if need to clear default parameters with for in loop [x]
@@ -19,7 +22,7 @@ function create(req, res) {
 
 	vehicle.services.push(req.body);
 	req.user.save(function(err) {
-		if (err) return res.render('services/new', { user: req.user, vehicleId: req.params.id });
+		// if (err) return res.render('services/new', { user: req.user, vehicleId: req.params.id });
 		console.log(vehicle);
 		res.redirect(`/vehicles/${req.params.id}`);
 	});

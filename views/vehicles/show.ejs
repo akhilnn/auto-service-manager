@@ -13,6 +13,7 @@
       <div class="navbar-nav">
         <% if (user) { %>
         <a href="/vehicles" class="nav-item nav-link">My Vehicles</a>
+        <a href="/dealerships/new" class="nav-item nav-link">Add Dealership</a>
         <h5><a href="/logout" class="nav-item badge badge-success">Log Out: <%= user.name %> (<%= user.email %>)</a></h5>
         <% } else { %>
         <h5><a href="/auth/google" class="nav-item badge badge-light">Login with Google</a></h5>
@@ -47,7 +48,13 @@
               <p class="card-subtitle mb-2 text-muted">
                 <%= s.servDate.getUTCMonth()+1; %>/<%= s.servDate.getUTCDate(); %>/<%= s.servDate.getUTCFullYear(); %>: <%= s.type %>
               </p>
+              <% dealerships.forEach(function(dlr) { %>
+                 <% if (s.dealership == dlr.id) { %>
+                    <p class="card-text">Dealership: <%= dlr.name %> (<%= dlr.address %>)</p>
+                 <% } %>
+              <% }); %>
               <p class="card-text">Mileage: <%= s.mileage %></p>
+              <hr>
               <p class="card-text"><%= s.detail %></p>
             </div>
             <!-- add form-group tags?[x] -->
