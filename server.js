@@ -9,10 +9,10 @@ var session = require('express-session');
 var passport = require('passport');
 var methodOverride = require('method-override');
 
-// load secrets from .env file (check placement)
+// load secrets from .env file
 require('dotenv').config();
 
-// connect to the MongoDB with mongoose (require below?)
+// connect to the MongoDB with mongoose
 require('./config/database');
 
 // configure Passport
@@ -23,7 +23,7 @@ var dealershipsRouter = require('./routes/dealerships');
 var vehiclesRouter = require('./routes/vehicles');
 var servicesRouter = require('./routes/services');
 
-var app = express(); // move this?
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,7 +34,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public'))); // change order of this?
+app.use(express.static(path.join(__dirname, 'public')));
 
 // add code here for session middleware
 app.use(session({

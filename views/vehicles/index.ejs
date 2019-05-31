@@ -8,29 +8,30 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <nav class="navbar fixed-top navbar-dark bg-dark">
-      <span class="navbar-brand mb-0 h1">ASM v1</span>
-      <div class="navbar-nav">
-        <% if (user) { %>
-        <a href="/vehicles" class="nav-item nav-link">My Vehicles</a>
-        <a href="/dealerships/new" class="nav-item nav-link">Add Dealership</a>
-        <h5><a href="/logout" class="nav-item badge badge-success">Log Out: <%= user.name %> (<%= user.email %>)</a></h5>
-        <% } else { %>
-        <h5><a href="/auth/google" class="nav-item badge badge-light">Login with Google</a></h5>
-        <% } %>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+      <span class="navbar-brand">ASM v1</span>
+      <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <% if (user) { %>
+            <a href="/vehicles" class="nav-item nav-link">My Vehicles</a>
+            <a href="/dealerships/new" class="nav-item nav-link">Add Dealership</a>
+            <h5><a href="/logout" class="nav-item badge badge-success">Log Out: <%= user.name %> (<%= user.email %>)</a></h5>
+            <% } else { %>
+            <h5><a href="/auth/google" class="nav-item badge badge-light">Login with Google</a></h5>
+            <% } %>
+        </div>
       </div>
     </nav>
-    <!-- Remove Dynamic Nav Bar -->
     <div>
-  		<h2>My Vehicles</h2>
+  		<h2>My Vehicles:</h2>
 	  	<% if (user.vehicles.length) { %>
 	  		<% user.vehicles.forEach(function(v) { %>
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title"><%= v.year %></h5>
-              <p class="card-text"><%= v.make %> <%= v.model %></p>
+              <h5 class="card-title"><%= v.make %> <%= v.model %></h5>
+              <p class="card-text"><%= v.year %></p>
               <a href="/vehicles/<%= v._id %>" class="btn btn-info btn-sm">Service History</a>
-              <form method="POST" action="/vehicles/<%= v._id %>?_method=DELETE">
+              <form method="POST" action="/vehicles/<%= v._id %>?_method=DELETE" class="form-inline">
                 <button type="submit" class="btn btn-danger btn-sm">Remove Vehicle</button>
               </form>
             </div>
@@ -38,7 +39,7 @@
           <br />
 	  		<% }); %>
 	  	<% } else { %>
-	  		<h5>No Vehicles Listed</h5>
+	  		<h5 class="text-muted">No Vehicles Listed</h5>
 	  	<% } %>
   	</div>
     <br />
@@ -46,35 +47,35 @@
     <br />
   	<div>
   		<h2>Add a Vehicle:</h2>
-      <!-- Group this in columns -->
   		<form method="POST" action="/vehicles" autocomplete="off">
-        <div class="form-group">
-          <label for="vin">VIN:</label>
-          <input type="text" name="vin" class="form-control" minlength="17" maxlength="17" size="18" required>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="vin">VIN:</label>
+            <input type="text" name="vin" class="form-control" minlength="17" maxlength="17" size="18" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="year">Year:</label>
+            <input type="number" name="year" min="1950" max="2030" value="2019" class="form-control" required>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="make">Make:</label>
-          <input type="text" name="make" class="form-control" required>
-        </div>
-        <div class="form-group">
-          <label for="model">Model:</label>
-          <input type="text" name="model" class="form-control" required>
-        </div>
-        <div class="form-group">
-          <label for="year">Year:</label>
-          <input type="number" name="year" min="1950" max="2030" value="2019" class="form-control" required>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="make">Make:</label>
+            <input type="text" name="make" class="form-control" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="model">Model:</label>
+            <input type="text" name="model" class="form-control" required>
+          </div>
         </div>
         <div class="form-group">
           <label for="mileage">Mileage:</label>
           <input type="number" name="mileage" class="form-control" min="0" value="0" required>
         </div>
-  			<!-- Add Dealer property -->
+  			<!-- FUTURE: Add Dealer property -->
   			<button type="submit" class="btn btn-dark">Add Vehicle</button>
   		</form>
   	</div>
-    <footer class="mastfoot mt-auto">
-      <p>Designed and built by A. Neti, 2019.</p>
-    </footer>
   </body>
 </html>
 

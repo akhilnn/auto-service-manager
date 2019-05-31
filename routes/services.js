@@ -2,10 +2,6 @@ var express = require('express');
 var router = express.Router();
 var servicesCtrl = require('../controllers/services');
 
-// mount and use in server.js [x]
-// isLoggedIn export
-// check for correct route order for same type [x]
-
 // GET /vehicles/:id/services/new
 router.get('/:id/services/new', isLoggedIn, servicesCtrl.new);
 

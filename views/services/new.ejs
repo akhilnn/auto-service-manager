@@ -8,38 +8,51 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <nav class="navbar fixed-top navbar-dark bg-dark">
-      <span class="navbar-brand mb-0 h1">ASM v1</span>
-      <div class="navbar-nav">
-        <% if (user) { %>
-        <a href="/vehicles" class="nav-item nav-link">My Vehicles</a>
-        <a href="/dealerships/new" class="nav-item nav-link">Add Dealership</a>
-        <h5><a href="/logout" class="nav-item badge badge-success">Log Out: <%= user.name %> (<%= user.email %>)</a></h5>
-        <% } else { %>
-        <h5><a href="/auth/google" class="nav-item badge badge-light">Login with Google</a></h5>
-        <% } %>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+      <span class="navbar-brand">ASM v1</span>
+      <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <% if (user) { %>
+            <a href="/vehicles" class="nav-item nav-link">My Vehicles</a>
+            <a href="/dealerships/new" class="nav-item nav-link">Add Dealership</a>
+            <h5><a href="/logout" class="nav-item badge badge-success">Log Out: <%= user.name %> (<%= user.email %>)</a></h5>
+            <% } else { %>
+            <h5><a href="/auth/google" class="nav-item badge badge-light">Login with Google</a></h5>
+            <% } %>
+        </div>
       </div>
     </nav>
     <main>
       <h2>Add a Service Record:</h2>
-      <!-- Group this in columns -->
       <form method="POST" action="/vehicles/<%= vehicleId %>/services" autocomplete="off">
-        <div class="form-group">
-          <label for="dealership">Select Dealership:</label>
-          <select name="dealership" class="form-control">
-            <% dealerships.forEach(function(dealer) { %>
-              <option value="<%= dealer._id %>"><%= dealer.name %></option>
-            <% }); %>
-          </select>
-          <small class="form-text text-muted">NOTE: If your dealership is not available, please add it to the database using the "Add Dealership" link above.</small>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="dealership">Select Dealership:</label>
+            <select name="dealership" class="form-control">
+              <% dealerships.forEach(function(dealer) { %>
+                <option value="<%= dealer._id %>"><%= dealer.name %></option>
+              <% }); %>
+            </select>
+            <small class="form-text text-muted">NOTE: If your dealership is not available, please add it to the database using the "Add Dealership" link above, and navigate back to this page.</small>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="type">Type:</label>
+            <select name="type" class="form-control" required>
+              <option value="Routine">Routine</option>
+              <option value="Repair">Repair</option>
+              <option value="Recall">Recall</option>
+            </select>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="type">Type:</label>
-          <select name="type" class="form-control" required>
-            <option value="Routine">Routine</option>
-            <option value="Repair">Repair</option>
-            <option value="Recall">Recall</option>
-          </select>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="servDate">Service Date:</label>
+            <input type="date" name="servDate" placeholder="YYYY-MM-DD" class="form-control" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="mileage">Mileage:</label>
+            <input type="number" name="mileage" class="form-control" min="0" value="0" required>
+          </div>
         </div>
         <div class="form-group">
           <label for="title">Title:</label>
@@ -49,24 +62,11 @@
           <label for="detail">Details:</label>
           <textarea name="detail" class="form-control" rows="3"></textarea>
         </div>
-        <div class="form-group">
-          <label for="servDate">Service Date:</label>
-          <!-- Can make this type text with required pattern -->
-          <input type="date" name="servDate" min="1950-01-01" max="2030-01-01" placeholder="YYYY-MM-DD" class="form-control" required>
-        </div>
-        <div class="form-group">
-          <label for="mileage">Mileage:</label>
-          <!-- Add server-side validation -->
-          <input type="number" name="mileage" class="form-control" min="0" value="0" required>
-        </div>
-        <!-- Add Dealer property -->
         <button type="submit" class="btn btn-dark">Add Service</button>
       </form>
+      <br />
       <a href="/vehicles/<%= vehicleId %>" class="btn btn-danger">Cancel</a>
     </main>
-    <footer class="mastfoot mt-auto">
-      <p>Designed and built by A. Neti, 2019.</p>
-    </footer>
   </body>
 </html>
 
